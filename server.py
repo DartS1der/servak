@@ -1,13 +1,13 @@
-from flask import Flask
+from flask import Flask, request, session, redirect, url_for, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace('postgres://', 'postgresql://')  # Фикс для Render
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.secret_key = os.environ.get('SECRET_KEY') or 'dev-secret-key'  # Важно для сессий!
 db = SQLAlchemy(app)
-
-# Модели (User и Feeder) остаются без изменений
 
 # Модели БД
 class User(db.Model):
