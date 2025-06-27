@@ -22,7 +22,12 @@ class Feeder(db.Model):
     name = db.Column(db.String(80), nullable=False)
     schedule = db.Column(db.String(255), default="[]")  # JSON: [{"time": "12:00", "grams": 50}]
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
+    
+#стартовая страница
+@app.route('/')
+def home():
+    return "Сервер кормушки работает!"
+    
 # Регистрация
 @app.route('/register', methods=['POST'])
 def register():
