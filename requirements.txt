@@ -2,3 +2,5 @@ flask
 flask-sqlalchemy
 werkzeug
 gunicorn
+   psycopg2-binary  # Для PostgreSQL на Render
+   
