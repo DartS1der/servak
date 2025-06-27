@@ -1,12 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for, session, jsonify
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace('postgres://', 'postgresql://')  # Фикс для Render
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+
+# Модели (User и Feeder) остаются без изменений
 
 # Модели БД
 class User(db.Model):
